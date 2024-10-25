@@ -1,0 +1,22 @@
+.btnConsPeriod{
+    border: 1px solid #C14623 !important;
+    background-color: #C14623 !important;
+    border-radius: 50% !important;
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    width: 4em;
+    height: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.btnImage{
+    max-width: 90%; 
+    max-height: 90%; 
+    height: auto;
+    width: auto;
+    transform: scale(2);
+}

@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react'
-import { Row, Col, Spinner, Container } from 'react-bootstrap';
+import { Row, Col, Spinner, Container, Button, Image } from 'react-bootstrap';
 
 import { planetInfo, getPlanetByName } from '../../modules/AstroAPI';
 import InputField from '../../components/InputField/InputField';
@@ -7,6 +7,7 @@ import PlanetCard from '../../components/PlanetCard/PlanetCard';
 import { BreadCrumbs } from '../../components/BreadCrumbs/BreadCrumbs';
 import { ROUTE_LABELS } from '../../Routes';
 import { PLANETS_MOCK } from '../../modules/mock';
+import "./PlanetList.css"
 
 const PlanetListPage: FC = () => {
     const [searchValue, setSearchValue] = useState('')
@@ -51,6 +52,9 @@ const PlanetListPage: FC = () => {
                     ))}
                 </Row>
             </Container>
+            <Button className="btnConsPeriod" variant="outline-warning">
+                    <Image className='btnImage' src='http://localhost:9000/images/wishLogo.png' width={100}/>
+            </Button>
         </div>
     )
 }
