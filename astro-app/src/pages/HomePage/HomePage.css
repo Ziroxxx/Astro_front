@@ -1,0 +1,32 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleName{
+    margin-top: 0.2em;
+    display: flex;
+    justify-content: center;
+}
+
+.RowClass{
+    display: flex;
+    justify-content: center;
+}
+
+.linkToPlanets{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.custom-button {
+    border-color: #C14623 !important;
+    color:#C14623 !important;
+}
+
+.custom-button:hover{
+    background-color: #C14623 !important;
+    color:white !important;
+}

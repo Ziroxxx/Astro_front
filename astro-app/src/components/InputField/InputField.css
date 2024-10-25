@@ -1,0 +1,29 @@
+.inputField{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2em;
+}
+
+.inputTag{
+    width: 25%;
+    border: 1px solid #C14623;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-left: 0.7em;
+}
+
+.btnInput{
+    width: 10%;
+    border: 1px solid #C14623 !important;
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    background-color: #C14623 !important;
+    color:white !important;
+}
+
+.btnInput:hover{
+    background-color: #ed5329 !important;
+    border-color: #ed5329 !important;
+}

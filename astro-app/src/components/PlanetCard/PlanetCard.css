@@ -1,0 +1,34 @@
+.card{
+    height: 38em !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cardBody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-start;
+}
+
+.cardImage{
+    height: 45%;
+}
+
+.linkCardButton{
+    margin-top: auto;
+}
+
+.cardButton{
+    border: 1px solid #C14623 !important;
+    background-color: #C14623 !important;
+    color:white !important;
+}
+
+.cardButton:hover{
+    background-color: white !important;
+    color: #C14623 !important;
+}
