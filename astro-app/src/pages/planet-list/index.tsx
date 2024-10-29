@@ -44,7 +44,7 @@ const PlanetListPage: FC = () => {
 
             {loading && <div className="loadingBg"><Spinner animation="border"/></div>}
             <Container className='container'>
-                <Row md={4} className="g-4 justify-content-center">
+                <Row md={4} className="g-4 justify-content-center w-100">
                     {planet.map((item, index)=> (
                         <Col key={index}>
                             <PlanetCard {...item}/>
