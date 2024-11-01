@@ -1,0 +1,15 @@
+{
+    "name": "AstroGid",
+    "short_name": "Gid",
+    "start_url": "/Astro_front",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#db4938",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "/Astro_front/logo.png",
+        "type": "image/png", "sizes": "192x192"
+      }
+    ]
+  }
