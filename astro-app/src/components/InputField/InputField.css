@@ -6,6 +6,7 @@
 
 .inputTag{
     width: 25%;
+    min-width: 12em;
     border: 1px solid #C14623;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -14,6 +15,7 @@
 
 .btnInput{
     width: 10%;
+    min-width: 6em;
     border: 1px solid #C14623 !important;
     border-top-right-radius: 10px !important;
     border-bottom-right-radius: 10px !important;

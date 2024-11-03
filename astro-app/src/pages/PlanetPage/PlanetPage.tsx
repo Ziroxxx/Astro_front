@@ -7,6 +7,7 @@ import { planetInfo, getPlanetById } from "../../modules/AstroAPI";
 import { Col, Row, Spinner, Image } from "react-bootstrap";
 import { PLANETS_MOCK } from "../../modules/mock";
 import defaultImage from "./default.jpg";
+import NavbarComponent from "../../components/NavBar/NavBar";
 
 export const PlanetPage: FC = () => {
   const [pageData, setPageDdata] = useState<planetInfo>();
@@ -24,6 +25,7 @@ export const PlanetPage: FC = () => {
 
   return (
     <div>
+      <NavbarComponent />
       <BreadCrumbs
         crumbs={[
           { label: ROUTE_LABELS.PLANETS, path: ROUTES.PLANETS },
@@ -33,14 +35,14 @@ export const PlanetPage: FC = () => {
       {pageData ? ( // проверка на наличие данных, иначе загрузка
         <div className="container">
           <Row>
-            <Col md={4}>
+            <Col xl={4} md={1} xs={1} >
               <Image className="img"
-                src={pageData.img || defaultImage} // дефолтное изображение, если нет artworkUrl100
+                src={pageData.img || pageData.mockImg || defaultImage} // дефолтное изображение, если нет artworkUrl100
                 alt="Картинка"
                 width={350}
               />
             </Col>
-            <Col md={8}>
+            <Col xl={8}>
               <p>
                 <strong>{pageData.name}</strong>
               </p>

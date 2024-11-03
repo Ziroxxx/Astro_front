@@ -10,12 +10,13 @@ interface Props {
     name: string,
     description: string,
     img: string,
-    detDes: string
+    detDes: string,
+    mockImg?: string
 }
 
-export const PlanetCard: FC<Props> = ({ name, description, img, planetID}) => (
+export const PlanetCard: FC<Props> = ({ name, description, img, planetID, mockImg}) => (
     <Card className="card">
-        <Card.Img className="cardImage" variant="top" src={img || defaultImage} height={100} width={100}  />
+        <Card.Img className="cardImage" variant="top" src={img || mockImg || defaultImage} alt='Картинка' height={100} width={100}  />
         <Card.Body className='cardBody'>            
             <div className="textStyle">
                 <Card.Title>{name}</Card.Title>

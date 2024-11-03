@@ -20,3 +20,9 @@
     width: auto;
     transform: scale(2);
 }
+
+@media (max-width: 767px) {
+    .widthOnXs{
+        width: 25em;
+    }
+}

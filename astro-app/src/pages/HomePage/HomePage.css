@@ -1,3 +1,15 @@
+.background {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('/background.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    color: white;
+  }
+  
+
 .container{
     display: flex;
     justify-content: center;
@@ -5,14 +17,17 @@
 }
 
 .titleName{
-    margin-top: 0.2em;
     display: flex;
     justify-content: center;
+    font-family: 'IBM Plex Mono', sans-serif;
+    font-size: 6em;
 }
 
 .RowClass{
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding-top: 20%;
 }
 
 .linkToPlanets{
@@ -21,12 +36,16 @@
     text-decoration: none;
 }
 
-.custom-button {
-    border-color: #C14623 !important;
-    color:#C14623 !important;
+p {
+    text-align: center;
 }
 
-.custom-button:hover{
-    background-color: #C14623 !important;
-    color:white !important;
+@media (max-width: 500px){
+    .titleName{
+        font-size: 2em;
+    }
+
+    .RowClass p{
+        font-size: 0.8em;
+    }
 }
