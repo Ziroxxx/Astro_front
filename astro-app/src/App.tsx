@@ -18,9 +18,9 @@ function App() {
       .catch((error: any) => console.log(error))
     }
   }, [])
-
+  
   return (
-    <BrowserRouter basename="/Astro_front">
+    <BrowserRouter basename=''>
       <Routes>
         <Route path={ROUTES.HOME} index element={<HomePage />} />
         <Route path={ROUTES.PLANETS} element={<PlanetListPage />} />

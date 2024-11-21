@@ -14,14 +14,14 @@ export interface planetResult {
 }
 
 export const getPlanetByName = async (name = ''): Promise<planetResult> =>{
-    return fetch(`http://192.168.1.31:3000/api/planets?PlanetName=${name}`)
+    return fetch(`http://192.168.1.19:3000/api/planets?PlanetName=${name}`)
         .then((response) => response.json())
 }
 
 export const getPlanetById = async (
     id: number | string
   ): Promise<planetInfo> => {
-    return fetch(`http://192.168.1.31:3000/api/planet/${id}`).then(
+    return fetch(`http://192.168.1.19:3000/api/planet/${id}`).then(
       (response) => response.json()
     );
   };
