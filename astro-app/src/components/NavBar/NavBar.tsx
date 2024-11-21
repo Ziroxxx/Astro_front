@@ -10,7 +10,7 @@ function NavbarComponent() {
     <Navbar bg="dark" expand="lg" variant='dark'>
       <Container>
           <Navbar.Brand as={Link} to={ROUTES.HOME} className="navbar-text-white">
-              <Image src='/logo2.png' width={30}/>
+              <Image src='/Astro_front/logo2.png' width={30}/>
               AstroGid
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

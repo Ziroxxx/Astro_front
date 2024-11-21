@@ -66,7 +66,7 @@ const PlanetListPage: FC = () => {
                 </Row>
             </Container>
             <Button className="btnConsPeriod" variant="outline-warning">
-                    <Image className='btnImage' src='/wishLogo.png' width={100}/>
+                    <Image className='btnImage' src='/Astro_front/wishLogo.png' width={100}/>
             </Button>
         </div>
     )
