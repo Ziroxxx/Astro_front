@@ -3,21 +3,23 @@ import { FC, useEffect, useState } from "react";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { useParams } from "react-router-dom";
-import { planetInfo, getPlanetById } from "../../modules/AstroAPI";
 import { Col, Row, Spinner, Image } from "react-bootstrap";
 import { PLANETS_MOCK } from "../../modules/mock";
 import defaultImage from "./default.jpg";
 import NavbarComponent from "../../components/NavBar/NavBar";
 
+import { api } from "../../api";
+import { PlanetSerial } from "../../api/Api";
+
 export const PlanetPage: FC = () => {
-  const [pageData, setPageDdata] = useState<planetInfo>();
+  const [pageData, setPageDdata] = useState<PlanetSerial>();
 
   const { id } = useParams(); // ид страницы, пример: "/albums/12"
 
   useEffect(() => {
     if (!id) return;
-    getPlanetById(id)
-      .then((response) => setPageDdata(response))
+    api.planet.planetRead(id)
+      .then((response) => setPageDdata(response.data))
       .catch(() => {
         setPageDdata(PLANETS_MOCK.planets.find((planet) => String(planet.planetID) == id))
       })
@@ -37,7 +39,7 @@ export const PlanetPage: FC = () => {
           <Row>
             <Col xl={4} md={1} xs={1} >
               <Image className="img"
-                src={pageData.img || pageData.mockImg || defaultImage} // дефолтное изображение, если нет artworkUrl100
+                src={pageData.img || defaultImage} // дефолтное изображение, если нет artworkUrl100
                 alt="Картинка"
                 width={350}
               />

@@ -9,12 +9,22 @@
 .cardBody{
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
+}
+
+.textStyle{
+    text-align: center;
 }
 
 .cardImage{
     height: 20em;
+}
+
+.blockButtons{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 4em;
+    padding-right: 4em;
 }
 
 .linkCardButton{
@@ -24,6 +34,7 @@
 .cardButton{
     border: 1px solid #C14623 !important;
     background-color: #C14623 !important;
+    width: 7em;
     color:white !important;
 }
 

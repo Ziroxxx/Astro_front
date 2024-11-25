@@ -1,39 +1,62 @@
 import { FC, useState, useEffect } from 'react'
 import { Row, Col, Spinner, Container, Button, Image } from 'react-bootstrap';
 
-import { getPlanetByName, planetInfo } from '../../modules/AstroAPI';
 import InputField from '../../components/InputField/InputField';
 import PlanetCard from '../../components/PlanetCard/PlanetCard';
 import { BreadCrumbs } from '../../components/BreadCrumbs/BreadCrumbs';
-import { ROUTE_LABELS } from '../../Routes';
+import { ROUTES, ROUTE_LABELS } from '../../Routes';
 import { PLANETS_MOCK } from '../../modules/mock';
 import "./PlanetList.css"
 import NavbarComponent from '../../components/NavBar/NavBar';
+import { Link } from "react-router-dom";
 // @ts-ignore
-import { setPlanetNameAction, usePlanetName } from "../../slices/dataSlice"
+import { setPlanetNameAction, usePlanetName, setWishIDAction, setWishCountAction, useWishID, useWishCount, addWishCountAction } from "../../slices/dataSlice"
 import {useDispatch} from "react-redux";
+
+import { api } from '../../api';
+import { PlanetSerial } from '../../api/Api';
 
 const PlanetListPage: FC = () => {
     const [loading, setLoading] = useState(false)
-    const [PlanetsResult, setPlanetResults] = useState<planetInfo[]>([])
+    const [PlanetsResult, setPlanetResults] = useState<PlanetSerial[]>([])
 
     const dispatch = useDispatch()
     const PlanetName = usePlanetName()
+    const wishID = useWishID()
+    const wishCount = useWishCount()
 
     const handleSearch = async () =>{
         setLoading(true)
-        getPlanetByName(PlanetName).then((response) => {
-                setPlanetResults(response.planets)
-                setLoading(false)
+        api.planets.planetsList({PlanetName: PlanetName}).then((response) => {
+                setPlanetResults(response.data.planets)
+                dispatch(setWishCountAction(response.data.wishCount))
+                dispatch(setWishIDAction(response.data.wishID))
             }).catch(() => {
                 const resultPlanets = []
                 for (let i = 0; i < PLANETS_MOCK.planets.length; i++)
                     if (PLANETS_MOCK.planets[i].name.toLowerCase().includes(PlanetName.toLowerCase()))
                         resultPlanets.push(PLANETS_MOCK.planets[i])
                 setPlanetResults(resultPlanets)
+                console.log('mocks read')
+            }).finally(() => {
                 setLoading(false)
+                dispatch(setPlanetNameAction(PlanetName))
             })
-        dispatch(setPlanetNameAction(PlanetName))
+    }
+
+    const checkWish = () => {
+        return (wishCount === 0 ? '' : `${ROUTES.CONS}/${wishID}`)
+    }
+
+    const handleAddToWish = (planetID: string) => {
+        api.planet.planetCreate(planetID).then((response) => {
+            if (response.status == 200){
+                dispatch(addWishCountAction())
+                dispatch(setWishIDAction(response.data.reqID))
+            }
+        }).catch(()=>{
+            console.log('уже добавлено')
+        })
     }
 
     useEffect(() => {
@@ -60,14 +83,21 @@ const PlanetListPage: FC = () => {
                 <Row md={3} xs={1} className="g-4 justify-content-center widthOnXs">
                     {PlanetsResult.map((item: any, index: any)=> (
                         <Col key={index}>
-                            <PlanetCard {...item}/>
+                            <PlanetCard 
+                                {...item}
+                                addToWish={() => handleAddToWish(item.planetID)}
+                                mode='add'
+                            />
                         </Col>
                     ))}
                 </Row>
             </Container>
-            <Button className="btnConsPeriod" variant="outline-warning">
-                    <Image className='btnImage' src='/Astro_front/wishLogo.png' width={100}/>
-            </Button>
+            <Link to={checkWish()}>
+                <Button className="btnConsPeriod" variant="outline-warning">
+                        <Image className='btnImage' src='/Astro_front/wishLogo.png' width={100}/>
+                </Button>
+                <div className='wishCount' hidden={wishCount == 0}>{wishCount}</div>
+            </Link>
         </div>
     )
 }

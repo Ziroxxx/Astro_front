@@ -1,0 +1,19 @@
+.bgForm{
+    background-color: #0f1040;
+    display: flex;
+    justify-content: center;
+}
+
+.consForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    height: 25em;
+    width: 35%;
+}
+
+.rowTitle{
+    font-size: 20px;
+    text-align: center;
+}

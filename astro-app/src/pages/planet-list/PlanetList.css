@@ -21,6 +21,19 @@
     transform: scale(2);
 }
 
+.wishCount{
+    position: fixed;
+    right: 1%;
+    bottom: 6%;
+    display: flex;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: red;
+    color: #FFFFFF;
+}
+
 @media (max-width: 767px) {
     .widthOnXs{
         width: 25em;
