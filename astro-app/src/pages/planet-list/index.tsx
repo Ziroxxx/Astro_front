@@ -79,8 +79,8 @@ const PlanetListPage: FC = () => {
             />
 
             {loading && <div className="loadingBg"><Spinner animation="border"/></div>}
-            <Container className='container'>
-                <Row md={3} xs={1} className="g-4 justify-content-center widthOnXs">
+            <Container>
+                <Row xxl={4} lg={3} md={2} xs={1} className="g-4 justify-content-center widthOnXs">
                     {PlanetsResult.map((item: any, index: any)=> (
                         <Col key={index}>
                             <PlanetCard 

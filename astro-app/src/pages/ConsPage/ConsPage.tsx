@@ -1,14 +1,15 @@
 import { FC, useState, useEffect } from "react";
 import { Form, Col, Row, Button, Container } from "react-bootstrap";
 import NavbarComponent from "../../components/NavBar/NavBar";
-import PlanetCard from "../../components/PlanetCard/PlanetCard";
+import PlanetCard from "../../components/PlanetCardHorizontal/PlanetCardHorizontal";
 // @ts-ignore
 import * as dataSlice from "../../slices/dataSlice"
 import {useDispatch} from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ROUTES } from "../../Routes";
+import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { api } from "../../api";
 import { PlanetSerial } from "../../api/Api";
+import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import './ConsPage.css'
 
 const ConsPage: FC = () => {
@@ -31,9 +32,9 @@ const ConsPage: FC = () => {
         api.consPeriod.consPeriodRead(id.toString()).then((response) => {
             if(response.data.planets){
                 const planets = response.data.planets.map((planetEntry: any) => planetEntry.planetID)
-                dispatch(dataSlice.setDateStartAction(response.data.dateStart))
-                dispatch(dataSlice.setDateEndAction(response.data.dateEnd))
-                dispatch(dataSlice.setConstellationAction(response.data.constellation))
+                dispatch(dataSlice.setDateStartAction(response.data.dateStart || ''))
+                dispatch(dataSlice.setDateEndAction(response.data.dateEnd || ''))
+                dispatch(dataSlice.setConstellationAction(response.data.constellation || ''))
                 setPlanetsInConstellation(planets)
             }
         }).catch(() => {
@@ -107,6 +108,7 @@ const ConsPage: FC = () => {
     return (
         <div>
             <NavbarComponent />
+            
             <div className="bgForm">
                 <Form className="consForm" noValidate validated={validated} onSubmit={handleSubmit}>
                     <Row>
@@ -161,14 +163,19 @@ const ConsPage: FC = () => {
                     </Row>
                 </Form>
             </div>
-            <Container className='container mt-5'>
-                <Row md={3} xs={1} className="g-4 justify-content-center widthOnXs">
+            {wish == id ? (<BreadCrumbs crumbs={[
+                {label: ROUTE_LABELS.PLANETS, path: ROUTES.PLANETS},
+                {label: 'Созвездие Черновик'}]}/>) : (<BreadCrumbs crumbs={[
+                    {label: ROUTE_LABELS.CONSTABLE, path:ROUTES.CONSTABLE},
+                    {label: 'Сохраненное созвездие'}
+                ]}/>)}
+            <Container className='container mt-5 rootConsPage'>
+                <Row xs={1} className="g-4 justify-content-center w-75">
                     {planetsInConstellation.map((item: any, index: any)=> (
                         <Col key={index}>
                             <PlanetCard 
                                 {...item}
                                 delFromWish={() => handleDelFromWish(wish, item.planetID)}
-                                mode='del'
                                 disabled={id != wish}
                             />
                         </Col>

@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import NavbarComponent from "../../components/NavBar/NavBar";
-import { ROUTES } from "../../Routes";
+import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { Link } from "react-router-dom";
 import { api } from "../../api";
 import { RequestSerial } from "../../api/Api";
 import { Table, Button } from "react-bootstrap";
+import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 
 const ConsTablePage: FC = () => {
     const [consResult, setConsResult] = useState<RequestSerial[]>([])
@@ -22,6 +23,9 @@ const ConsTablePage: FC = () => {
     return (
         <div>
             <NavbarComponent />
+            <BreadCrumbs 
+                crumbs={[{label: ROUTE_LABELS.CONSTABLE, path: ROUTES.CONSTABLE}]}
+            />
             <Table striped bordered hover>
                 <thead>
                     <tr>

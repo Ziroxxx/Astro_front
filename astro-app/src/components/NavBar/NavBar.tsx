@@ -35,7 +35,7 @@ function NavbarComponent() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to={ROUTES.PLANETS} className="navbar-text-white">Планеты</Nav.Link>
-            <Nav.Link as={Link} to={ROUTES.CONSTABLE} hidden={user == ''}>Созвездия</Nav.Link>
+            <Nav.Link as={Link} to={ROUTES.CONSTABLE} hidden={Object.keys(user).length === 0}>Созвездия</Nav.Link>
           </Nav>
           <Nav>
           <Nav.Link as={Link} to={ROUTES.AUTH} hidden={Object.keys(user).length !== 0}>Войти</Nav.Link>
