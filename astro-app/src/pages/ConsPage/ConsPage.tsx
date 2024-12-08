@@ -51,15 +51,8 @@ const ConsPage: FC = () => {
     }
 
     const handleDelWish = (idCons: string) => {
-        api.consPeriod.consPeriodDelete(idCons).then(() => {
-            dispatch(dataSlice.setWishIDAction(''))
-            dispatch(dataSlice.setWishCountAction(0))
-            dispatch(dataSlice.setDateStartAction(''))
-            dispatch(dataSlice.setDateEndAction(''))
-            dispatch(dataSlice.setConstellationAction(''))
+        dispatch(dataSlice.delAllWishAction(idCons)).then(() => {
             navigate(ROUTES.PLANETS)
-        }).catch(() => {
-            console.log("Не удаллось удалить созвездие")
         })
     }
 
@@ -79,7 +72,8 @@ const ConsPage: FC = () => {
           api.consPeriod.consPeriodUpdate(wish, { 
             dateStart: dateStart, 
             dateEnd: dateEnd, 
-            constellation: constellation}).then(() => {
+            constellation: constellation})
+            .then(() => {
                 handleSaveByCreator()
             }).catch(() => {
                 setDataValid(false)
@@ -89,12 +83,7 @@ const ConsPage: FC = () => {
     }
 
     const handleSaveByCreator = () => {
-        api.consPeriod.consPeriodSaveByCreatorUpdate(wish, {}).then(() => {
-            dispatch(dataSlice.setWishIDAction(''))
-            dispatch(dataSlice.setWishCountAction(0))
-            dispatch(dataSlice.setDateStartAction(''))
-            dispatch(dataSlice.setDateEndAction(''))
-            dispatch(dataSlice.setConstellationAction(''))
+        dispatch(dataSlice.saveConsAction({id: wish, data: {}})).then(() => {
             navigate(ROUTES.PLANETS)
         })
     }

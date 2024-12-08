@@ -55,6 +55,22 @@ export const delFromWishAction = createAsyncThunk<MMwithPlanetSerial[], {req_id:
     }
 )
 
+export const delAllWishAction = createAsyncThunk<void, string>(
+    'data/delAllWichAction',
+    async (idCons) => {
+        const respone = await api.consPeriod.consPeriodDelete(idCons)
+        return respone.data
+    }
+)
+
+export const saveConsAction = createAsyncThunk<RequestDetailSerial, {id: string, data: RequestDetailSerial}>(
+    'data/saveConsAction',
+    async (savingInfo) => {
+        const respone = await api.consPeriod.consPeriodSaveByCreatorUpdate(savingInfo.id, savingInfo.data)
+        return respone.data
+    }
+)
+
 interface DataState{
     PlanetName: string,
     userInfo: UserSerial | null,
@@ -147,6 +163,22 @@ const dataSlice = createSlice({
         })
         builder.addCase(delFromWishAction.fulfilled, (state) => {
             state.wishCount -= 1
+        })
+
+        builder.addCase(delAllWishAction.fulfilled, (state) => {
+            state.constellation = ''
+            state.dateEnd = ''
+            state.dateStart = ''
+            state.wishCount = 0
+            state.wishID = ''
+        })
+
+        builder.addCase(saveConsAction.fulfilled, (state) => {
+            state.constellation = ''
+            state.dateEnd = ''
+            state.dateStart = ''
+            state.wishCount = 0
+            state.wishID = ''
         })
     }
 })
