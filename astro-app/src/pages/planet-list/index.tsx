@@ -9,28 +9,26 @@ import { PLANETS_MOCK } from '../../modules/mock';
 import "./PlanetList.css"
 import NavbarComponent from '../../components/NavBar/NavBar';
 import { Link } from "react-router-dom";
-// @ts-ignore
-import { setPlanetNameAction, usePlanetName, setWishIDAction, setWishCountAction, useWishID, useWishCount, addWishCountAction } from "../../slices/dataSlice"
-import {useDispatch} from "react-redux";
+import { setPlanetNameAction, usePlanetName, useWishID, useWishCount, 
+        getPlanetByName, add2Wish, useAppDispatch} from "../../slices/dataSlice"
+import { unwrapResult } from '@reduxjs/toolkit';
 
-import { api } from '../../api';
 import { PlanetSerial } from '../../api/Api';
 
 const PlanetListPage: FC = () => {
     const [loading, setLoading] = useState(false)
     const [PlanetsResult, setPlanetResults] = useState<PlanetSerial[]>([])
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const PlanetName = usePlanetName()
     const wishID = useWishID()
     const wishCount = useWishCount()
 
     const handleSearch = async () =>{
         setLoading(true)
-        api.planets.planetsList({PlanetName: PlanetName}).then((response) => {
-                setPlanetResults(response.data.planets)
-                dispatch(setWishCountAction(response.data.wishCount))
-                dispatch(setWishIDAction(response.data.wishID))
+        dispatch(getPlanetByName(PlanetName)).then(unwrapResult)
+        .then((data) => {
+                setPlanetResults(data.planets)
             }).catch(() => {
                 const resultPlanets = []
                 for (let i = 0; i < PLANETS_MOCK.planets.length; i++)
@@ -49,12 +47,8 @@ const PlanetListPage: FC = () => {
     }
 
     const handleAddToWish = (planetID: string) => {
-        api.planet.planetCreate(planetID).then((response) => {
-            if (response.status == 200){
-                dispatch(addWishCountAction())
-                dispatch(setWishIDAction(response.data.reqID))
-            }
-        }).catch(()=>{
+        dispatch(add2Wish(planetID))
+        .catch(()=>{
             console.log('уже добавлено')
         })
     }

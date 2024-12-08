@@ -9,12 +9,12 @@ import { api } from "../../api";
 const ProfilePage: FC = () => {
     const user = useUserInfo()
 
-    const [userName, setUserName] = useState(user.username)
+    const [userName, setUserName] = useState(user?.username)
     const [pass, setPass] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [firstName, setFistName] = useState(user.first_name)
-    const [lastName, setLastName] = useState(user.last_name)
-    const [email, setEmail] = useState(user.email)
+    const [firstName, setFistName] = useState(user?.first_name)
+    const [lastName, setLastName] = useState(user?.last_name)
+    const [email, setEmail] = useState(user?.email)
 
     const [validated, setValidated] = useState(false)
     const [loginValid, setLoginValid] = useState(true)
@@ -47,7 +47,8 @@ const ProfilePage: FC = () => {
             return;
         }
 
-        api.user.userUpdate(user.id, {
+        if(user?.id)
+        api.user.userUpdate(user.id.toString(), {
             username: userName,
             ...(pass !== "" && { password: pass }),
             first_name: firstName,

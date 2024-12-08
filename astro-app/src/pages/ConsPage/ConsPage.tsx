@@ -2,15 +2,15 @@ import { FC, useState, useEffect } from "react";
 import { Form, Col, Row, Button, Container } from "react-bootstrap";
 import NavbarComponent from "../../components/NavBar/NavBar";
 import PlanetCard from "../../components/PlanetCardHorizontal/PlanetCardHorizontal";
-// @ts-ignore
 import * as dataSlice from "../../slices/dataSlice"
-import {useDispatch} from "react-redux";
+import { useAppDispatch } from "../../slices/dataSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { api } from "../../api";
 import { PlanetSerial } from "../../api/Api";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import './ConsPage.css'
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const ConsPage: FC = () => {
     const { id } = useParams()
@@ -24,17 +24,15 @@ const ConsPage: FC = () => {
     const dateEnd = dataSlice.useDateEnd()
     const constellation = dataSlice.useConstellation()
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const handleGetPlanets = () => {
         if(id)
-        api.consPeriod.consPeriodRead(id.toString()).then((response) => {
-            if(response.data.planets){
-                const planets = response.data.planets.map((planetEntry: any) => planetEntry.planetID)
-                dispatch(dataSlice.setDateStartAction(response.data.dateStart || ''))
-                dispatch(dataSlice.setDateEndAction(response.data.dateEnd || ''))
-                dispatch(dataSlice.setConstellationAction(response.data.constellation || ''))
+        dispatch(dataSlice.getPlanetsInCons(id.toString())).then(unwrapResult)
+        .then((data)=> {
+            if(data.planets){
+                const planets = data.planets.map((planetEntry: any) => planetEntry.planetID)
                 setPlanetsInConstellation(planets)
             }
         }).catch(() => {
@@ -42,10 +40,10 @@ const ConsPage: FC = () => {
         })
     }
     const handleDelFromWish = (idCons: string, idPlanet: string) => {
-        api.mm.mmDelete(idCons, idPlanet).then((response) => {
-            dispatch(dataSlice.delWishCountAction())
-            setPlanetsInConstellation(response.data.map((planetEntry: any) => planetEntry.planetID))
-            if(response.data.length === 0){
+        dispatch(dataSlice.delFromWishAction({req_id: idCons, planet_id: idPlanet})).then(unwrapResult)
+        .then((data) => {
+            setPlanetsInConstellation(data.map((planetEntry: any) => planetEntry.planetID))
+            if(data.length === 0){
                 dispatch(dataSlice.setWishIDAction(''))
                 navigate(ROUTES.PLANETS)
             }

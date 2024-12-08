@@ -1,12 +1,11 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState } from 'react'
 import NavbarComponent from "../../components/NavBar/NavBar";
 import { Button, Form, Row, Col } from 'react-bootstrap'
-import { api } from '../../api';
 import { ROUTES } from '../../Routes';
 import { useNavigate } from 'react-router-dom';
-//@ts-ignore
-import { setUserInfoAction, useUserInfo } from "../../slices/dataSlice"
-import {useDispatch} from "react-redux";
+import { loginAction } from "../../slices/dataSlice"
+import { useAppDispatch } from '../../slices/dataSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const AuthPage: FC = () => {
     const [userName, setUserName] = useState('')
@@ -16,7 +15,7 @@ const AuthPage: FC = () => {
     const [logErr, setLogErr] = useState(false)
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const onSubmitHandler = async (event: any) => {
         const formm = event.currentTarget
@@ -32,15 +31,12 @@ const AuthPage: FC = () => {
             return
         }
 
-        api.user.userLoginCreate({username: userName, password: pass})
-        .then((response) => {
-            dispatch(setUserInfoAction(response.data))
-            navigate(ROUTES.HOME)
-            console.log(useUserInfo())
-            console.log(response.data)
-        })
-        .catch(() => {
-            setLogErr(true)
+        dispatch(loginAction({username: userName, password: pass}))
+        .then((unwrapResult) => {
+            if(unwrapResult.payload)
+                navigate(ROUTES.HOME)
+            else
+                setLogErr(true)
         }).finally(() => setValidated(true))
     }
 
