@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import NavbarComponent from "../../components/NavBar/NavBar";
 import { ROUTES, ROUTE_LABELS } from "../../Routes";
-import { Link } from "react-router-dom";
 import { api } from "../../api";
 import { RequestSerial } from "../../api/Api";
-import { Table, Button } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
+import ConsCard from "../../components/ConsCard/ConsCard";
 
 const ConsTablePage: FC = () => {
     const [consResult, setConsResult] = useState<RequestSerial[]>([])
@@ -26,42 +26,24 @@ const ConsTablePage: FC = () => {
             <BreadCrumbs 
                 crumbs={[{label: ROUTE_LABELS.CONSTABLE, path: ROUTES.CONSTABLE}]}
             />
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                    <th>#</th>
-                    <th>Логин астролога</th>
-                    <th>Дата создания</th>
-                    <th>Дата формирования</th>
-                    <th>Статус</th>
-                    <th>Начало периода</th>
-                    <th>Конец периода</th>
-                    <th>Созвездие</th>
-                    <th>Логин астронома</th>
-                    <th>Подробнее</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {consResult.map((item) => (
-                        <tr key={item.reqID}>
-                            <td>{item.reqID}</td>
-                            <td>{item.userID || "Не указано"}</td>
-                            <td>{item.dateCreated}</td>
-                            <td>{item.dateSaved || "Не сохранено"}</td>
-                            <td>{item.status}</td>
-                            <td>{item.dateStart || "Не указано"}</td>
-                            <td>{item.dateEnd || "Не указано"}</td>
-                            <td>{item.constellation || "Не указано"}</td>
-                            <td>{item.moderID || "Не указано"}</td>
-                            <td>
-                                <Link to={`${ROUTES.CONS}/${item.reqID}`}>
-                                    <Button variant="primary">Подробнее</Button>
-                                </Link>
-                            </td>
-                        </tr>
+            <Container>
+                <Row xs={1} className="g-4 justify-content-center">
+                    {consResult.map((constellation) => (
+                        <ConsCard 
+                        id={constellation.reqID}
+                        creator={constellation.userID}
+                        dateCreated={constellation.dateCreated}
+                        dateSaved={constellation.dateSaved}
+                        status={constellation.status}
+                        dateStart={constellation.dateStart}
+                        dateEnd={constellation.dateEnd}
+                        constellation={constellation.constellation}
+                        dateModerated={constellation.dateModerated}
+                        moder={constellation.moderID}
+                        />
                     ))}
-                </tbody>
-            </Table>
+                </Row>
+            </Container>
         </div>
     )
 }

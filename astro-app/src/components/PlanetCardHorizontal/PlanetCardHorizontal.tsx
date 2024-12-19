@@ -16,23 +16,6 @@ interface Props {
 }
 
 export const PlanetCard: FC<Props> = ({ name, description, img, planetID, delFromWish, disabled}) => (
-    // <Card className="card">
-        
-    //         <Card.Img className="cardImage" width={50} src={img || defaultImage} alt='Картинка' />
-    //         <Card.Body className='cardBody'>            
-    //             <Card.Title className='textTitle'>{name}</Card.Title>
-    //             <Card.Text>
-    //                 {description}
-    //             </Card.Text>
-    //             <div className="blockButtons">
-    //                 <Link to={`${ROUTES.PLANETS}/${planetID}`} className="linkCardButton">
-    //                     <Button className="cardButton" variant="primary">Подробнее</Button>
-    //                 </Link>
-    //                 <Button className='cardButton' variant='primary' onClick={() => delFromWish()} disabled={disabled}>Удалить</Button>
-    //             </div>
-    //         </Card.Body>
-        
-    // </Card>
     <div className='cardH'>
         <Row>
             <Col className='col-auto'>

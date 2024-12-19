@@ -1,0 +1,53 @@
+.cardWrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-top: 10px solid #C14623;
+    background-color: #f6f4f2;
+}
+
+.cardWrapper:hover{
+    border-color: #C14623;
+    cursor: pointer;
+}
+
+.field{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 230px;
+}
+
+.fieldName{
+    font-weight: 700;
+}
+
+.savedClass{
+    color: white;
+    background-color: #baba2b;
+    width: 6em;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.acceptedClass{
+    color: white;
+    background-color: rgb(84, 194, 10);
+    width: 6em;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.rejectedClass{
+    color: white;
+    background-color: rgb(194, 10, 13);
+    width: 6em;
+    text-align: center;
+    border-radius: 5px;
+}
